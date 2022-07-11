@@ -5,8 +5,8 @@
 **
 */
 
-#ifndef		TEKPAINT_H_
-# define	TEKPAINT_H_
+#ifndef		TEK_WINDOW_H_
+# define	TEK_WINDOW_H_
 
 # include	<SFML/Audio.h>
 # include	<SFML/Graphics.h>
@@ -16,9 +16,9 @@
 # include	<math.h>
 # include	<stdio.h>
 
-# include	"tek_window.h"
-# include	"tek_canvas.h"
 
-void		event_handler(sfRenderWindow *, sfEvent *);
+sfRenderWindow	*window_init(char *, int, int, int);
+void		window_close(sfRenderWindow *);
+void		window_destroy(sfRenderWindow *);
 
 #endif

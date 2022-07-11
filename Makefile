@@ -8,7 +8,9 @@
 NAME	=	tekpaint
 
 SRCS	=	src/main.c \
-		src/window.c
+		src/window.c \
+		src/event.c \
+		src/canvas.c
 
 OBJS	=	$(SRCS:.c=.o)
 
