@@ -19,6 +19,7 @@
 # include	"tek_window.h"
 # include	"tek_canvas.h"
 # include	"tek_event.h"
+# include	"tek_button.h"
 
 typedef struct		s_tekpaint {
   int			width;
@@ -27,10 +28,11 @@ typedef struct		s_tekpaint {
   t_canvas		*ui;
   sfEvent		event;
   sfRenderWindow	*window;
+  t_button		*button;
 } t_tekpaint;
 
 void			tekpaint_init(t_tekpaint *);
 void			tekpaint_ui(t_tekpaint *);
-
+void			tekpaint_update(t_tekpaint *);
 
 #endif
