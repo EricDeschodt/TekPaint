@@ -5,13 +5,14 @@
 **
 */
 
-#include "tekpaint.h"
+#include "tek_event.h"
 
-void event_handler(sfRenderWindow *window, sfEvent *event)
+
+void	event_handler(t_tekpaint *tekpaint)
 {
-  while (sfRenderWindow_pollEvent(window, event))
+  while (sfRenderWindow_pollEvent(tekpaint->window, &tekpaint->event))
     {
-      if (event->type == sfEvtClosed)
-	window_close(window);
+      if (tekpaint->event.type == sfEvtClosed)
+	window_close(tekpaint->window);
     }
 }

@@ -39,6 +39,11 @@ void	tekpaint_add_button_in_list(t_tekpaint *tekpaint,
        atoi(data[WIDTH]),
        atoi(data[HEIGHT])},
      NULL, NULL);
+  t_button_set_button_style
+    (new_button,
+     sfColor_fromInteger(strtol(data[MAIN_COLOR], NULL, 16)),
+     sfColor_fromInteger(strtol(data[HOVER_COLOR], NULL, 16)),
+     sfColor_fromInteger(strtol(data[BORDER_COLOR], NULL, 16)));
   tekpaint_put_in_list(tekpaint, new_button);
 }
 
@@ -58,7 +63,7 @@ void	tekpaint_load_config(t_tekpaint *tekpaint)
     tekpaint_add_button_in_list(tekpaint, line);
   }
   if (line)
-    free(line);  
+    free(line);
 }
 
 void	tekpaint_init(t_tekpaint *tekpaint)
@@ -114,7 +119,7 @@ void	tekpaint_draw_buttons(t_tekpaint *tekpaint)
 
 void	tekpaint_update(t_tekpaint *tekpaint)
 {
-  event_handler(tekpaint->window, &tekpaint->event);
+  event_handler(tekpaint);
   t_canvas_draw(tekpaint->window, tekpaint->ui, 0, 0);
   tekpaint_draw_buttons(tekpaint);
 

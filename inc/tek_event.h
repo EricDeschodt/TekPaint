@@ -16,6 +16,10 @@
 # include	<math.h>
 # include	<stdio.h>
 
-void            event_handler(sfRenderWindow *, sfEvent *);
+# include	"tekpaint.h"
+
+typedef struct s_tekpaint t_tekpaint;
+
+void            event_handler(t_tekpaint *);
 
 #endif

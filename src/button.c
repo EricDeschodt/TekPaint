@@ -64,7 +64,9 @@ void		t_button_update_state(t_button *button)
 	  if (i < 2 || j < 2
 	      || i > button->hitbox.width - 3
 	      || j > button->hitbox.height - 3)
-	    t_canvas_putpixel(button->canvas, i, j, button->border);
+	    {
+	      t_canvas_putpixel(button->canvas, i, j, button->border);
+	    }
 	  else
 	    t_canvas_putpixel(button->canvas, i, j,
 			      button->is_hover == true ?
