@@ -12,6 +12,8 @@ t_button	*t_button_create(sfIntRect hitbox,
 				 void (*fct)(void *))
 {
   t_button *new_button = malloc(sizeof(t_button));
+  if (!new_button)
+    exit(EXIT_FAILURE);
   new_button->hitbox = hitbox;
   new_button->text = sfText_create();
   new_button->fct = fct;

@@ -7,20 +7,75 @@
 
 #include "tekpaint.h"
 
+void	tekpaint_put_in_list(t_tekpaint *tekpaint,
+			     t_button *new_button)
+{
+  t_buttons_list *new_node = malloc(sizeof(t_buttons_list));
+  if (!new_node)
+    exit(EXIT_FAILURE);
+  new_node->button = new_button;  
+  if (tekpaint->buttons_list == NULL)
+    new_node->next = NULL;
+  else
+    new_node->next = tekpaint->buttons_list;      
+  tekpaint->buttons_list = new_node;
+}
+
+void	tekpaint_add_button_in_list(t_tekpaint *tekpaint,
+				    char *line)
+{
+  char *data[8];
+  int i = 0;
+  const char *delim = ",";
+  char	*token = strtok(line, delim);
+  while (token != NULL)
+    {
+      data[i++] = strdup(token);
+      token = strtok(NULL, delim);
+    }
+  t_button *new_button = t_button_create
+    ((sfIntRect){atoi(data[POS_X]),
+       atoi(data[POS_Y]),
+       atoi(data[WIDTH]),
+       atoi(data[HEIGHT])},
+     NULL, NULL);
+  tekpaint_put_in_list(tekpaint, new_button);
+}
+
+void	tekpaint_load_config(t_tekpaint *tekpaint)
+{
+  FILE * fp;
+  char * line = NULL;
+  size_t len = 0;
+  ssize_t read;
+
+  tekpaint->buttons_list = NULL;
+  fp = fopen("./conf/config.csv", "r");
+  if (fp == NULL)
+    exit(EXIT_FAILURE);
+  read = getline(&line, &len, fp);
+  while ((read = getline(&line, &len, fp)) != -1) {
+    tekpaint_add_button_in_list(tekpaint, line);
+  }
+  if (line)
+    free(line);  
+}
+
 void	tekpaint_init(t_tekpaint *tekpaint)
 {
   tekpaint->width = 1280;
   tekpaint->height = 720;
   tekpaint->border = 5;
-  if ((tekpaint->window =
-       window_init("tekpaint", tekpaint->width, tekpaint->height, 32)) != NULL)
-    sfRenderWindow_setFramerateLimit(tekpaint->window, 60);
-  tekpaint->ui =
-    t_canvas_create(tekpaint->width,
-		    tekpaint->height,
-		    sfColor_fromRGB(0xBD,0xBD,0xBD));
+  tekpaint->window =
+    window_init("tekpaint", tekpaint->width, tekpaint->height, 32);
+  if (!tekpaint->window)
+    exit(EXIT_FAILURE);
+  sfRenderWindow_setFramerateLimit(tekpaint->window, 60);
+  tekpaint->ui = t_canvas_create(tekpaint->width,
+				 tekpaint->height,
+				 sfColor_fromRGB(0xBD,0xBD,0xBD));
   tekpaint_ui(tekpaint);
-  tekpaint->button = t_button_create((sfIntRect){100, 150, 200, 50}, NULL, NULL);  
+  tekpaint_load_config(tekpaint);
 }
 
 
@@ -45,11 +100,22 @@ void	tekpaint_ui(t_tekpaint *tekpaint)
     }
 }
 
+void	tekpaint_draw_buttons(t_tekpaint *tekpaint)
+{
+  t_buttons_list *tmp = tekpaint->buttons_list;
+
+  while (tmp != NULL)
+    {
+      t_button_hover(tmp->button, tekpaint->window);
+      t_button_draw(tmp->button, tekpaint->window);
+      tmp = tmp->next;
+    }
+}
+
 void	tekpaint_update(t_tekpaint *tekpaint)
 {
   event_handler(tekpaint->window, &tekpaint->event);
   t_canvas_draw(tekpaint->window, tekpaint->ui, 0, 0);
-  t_button_hover(tekpaint->button, tekpaint->window);
-  t_button_draw(tekpaint->button, tekpaint->window);
+  tekpaint_draw_buttons(tekpaint);
 
 }

@@ -19,10 +19,12 @@ sfRenderWindow		*window_init(char *name,
 
 void			window_close(sfRenderWindow *window)
 {
-  sfRenderWindow_close(window);
+  if (window)
+    sfRenderWindow_close(window);
 }
   
 void			window_destroy(sfRenderWindow *window)
 {
-  sfRenderWindow_destroy(window);
+  if (window)
+    sfRenderWindow_destroy(window);
 }

@@ -12,6 +12,8 @@ t_canvas	*t_canvas_create(int width, int height, sfColor color)
   t_canvas	*new_canvas;
 
   new_canvas = malloc(sizeof(t_canvas));
+  if (!new_canvas)
+    exit(EXIT_FAILURE);
   new_canvas->sprite = sfSprite_create();
   new_canvas->texture = sfTexture_create(width, height);
   new_canvas->image = sfImage_createFromColor(width, height, color);
@@ -27,6 +29,8 @@ t_canvas        *t_canvas_create_from_file(char *src)
     t_canvas    *new_canvas;
 
     new_canvas = malloc(sizeof(t_canvas));
+    if (!new_canvas)
+      exit(EXIT_FAILURE);
     new_canvas->sprite = sfSprite_create();
     new_canvas->image = sfImage_createFromFile(src);
     new_canvas->width = sfImage_getSize(new_canvas->image).x;

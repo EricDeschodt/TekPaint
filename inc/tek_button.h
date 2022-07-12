@@ -19,6 +19,17 @@
 
 # include	"tek_canvas.h"
 
+typedef enum {
+  POS_X = 0,
+  POS_Y = 1,
+  WIDTH = 2,
+  HEIGHT = 3,
+  MAIN_COLOR = 4,
+  HOVER_COLOR = 5,
+  BORDER_COLOR = 6,
+  TEXT_COLOR = 7
+}button_data;
+
 typedef struct	s_button {
   sfIntRect	hitbox;
   t_canvas	*canvas;
