@@ -82,6 +82,7 @@ void		t_button_draw(t_button *button, sfRenderWindow *window)
   t_canvas_draw(window, button->canvas,
 		button->hitbox.left,
 		button->hitbox.top);
+  
 }
 
 void		t_button_hover(t_button *button, sfRenderWindow *window)

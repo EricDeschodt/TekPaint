@@ -55,7 +55,10 @@ void		t_canvas_draw(sfRenderWindow *window,
   sfRenderWindow_drawSprite(window, canvas->sprite, NULL);
 }
 
-void		t_canvas_putpixel(t_canvas *canvas, int x, int y, sfColor color)
+void		t_canvas_putpixel(t_canvas *canvas,
+				  int x,
+				  int y,
+				  sfColor color)
 {
   sfImage_setPixel(canvas->image, x, y, color);
 }

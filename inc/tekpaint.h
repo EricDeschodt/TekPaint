@@ -35,8 +35,8 @@ typedef struct		s_tekpaint {
   t_canvas		*ui;
   sfEvent		event;
   sfRenderWindow	*window;
-  t_button		*button;
   t_buttons_list	*buttons_list;
+  sfFont		*font;
 } t_tekpaint;
 
 

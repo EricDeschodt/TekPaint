@@ -44,6 +44,11 @@ void	tekpaint_add_button_in_list(t_tekpaint *tekpaint,
      sfColor_fromInteger(strtol(data[MAIN_COLOR], NULL, 16)),
      sfColor_fromInteger(strtol(data[HOVER_COLOR], NULL, 16)),
      sfColor_fromInteger(strtol(data[BORDER_COLOR], NULL, 16)));
+  t_button_set_text
+    (new_button,
+     tekpaint->font,
+     sfColor_fromInteger(strtol(data[TEXT_COLOR], NULL, 16)),
+     "test");
   tekpaint_put_in_list(tekpaint, new_button);
 }
 
@@ -71,15 +76,16 @@ void	tekpaint_init(t_tekpaint *tekpaint)
   tekpaint->width = 1280;
   tekpaint->height = 720;
   tekpaint->border = 5;
-  tekpaint->window =
-    window_init("tekpaint", tekpaint->width, tekpaint->height, 32);
+  tekpaint->window = window_init
+    ("tekpaint", tekpaint->width, tekpaint->height, 32);
   if (!tekpaint->window)
     exit(EXIT_FAILURE);
   sfRenderWindow_setFramerateLimit(tekpaint->window, 60);
   tekpaint->ui = t_canvas_create(tekpaint->width,
 				 tekpaint->height,
-				 sfColor_fromRGB(0xBD,0xBD,0xBD));
+				 sfBlack);
   tekpaint_ui(tekpaint);
+  tekpaint->font = sfFont_createFromFile("./res/Arial.ttf");
   tekpaint_load_config(tekpaint);
 }
 
@@ -122,5 +128,4 @@ void	tekpaint_update(t_tekpaint *tekpaint)
   event_handler(tekpaint);
   t_canvas_draw(tekpaint->window, tekpaint->ui, 0, 0);
   tekpaint_draw_buttons(tekpaint);
-
 }
