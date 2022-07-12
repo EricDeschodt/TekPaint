@@ -25,7 +25,8 @@ typedef struct	s_canvas {
 }t_canvas;
 
 t_canvas	*t_canvas_create(int, int, sfColor);
-t_canvas	*t_canvas_createFromFile(char *);
+t_canvas	*t_canvas_create_from_file(char *);
 void		t_canvas_draw(sfRenderWindow *, t_canvas *, int, int);
+void		t_canvas_putpixel(t_canvas *, int, int, sfColor);
 
 #endif

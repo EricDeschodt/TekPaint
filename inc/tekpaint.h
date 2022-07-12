@@ -18,7 +18,19 @@
 
 # include	"tek_window.h"
 # include	"tek_canvas.h"
+# include	"tek_event.h"
 
-void		event_handler(sfRenderWindow *, sfEvent *);
+typedef struct		s_tekpaint {
+  int			width;
+  int			height;
+  int			border;
+  t_canvas		*ui;
+  sfEvent		event;
+  sfRenderWindow	*window;
+} t_tekpaint;
+
+void			tekpaint_init(t_tekpaint *);
+void			tekpaint_ui(t_tekpaint *);
+
 
 #endif

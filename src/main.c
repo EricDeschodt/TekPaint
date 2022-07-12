@@ -9,20 +9,15 @@
 
 int			main()
 {
-  sfRenderWindow	*window;
-  sfEvent		event;
-  t_canvas		*canvas;
+  t_tekpaint		tekpaint;
 
-  canvas = t_canvas_createFromFile("res/doge.png");
-  if ((window = window_init("tekpaint", 1280, 720, 32)) == NULL)
-    return EXIT_FAILURE;
-  while (sfRenderWindow_isOpen(window))
+  tekpaint_init(&tekpaint);
+  while (sfRenderWindow_isOpen(tekpaint.window))
     {
-      sfRenderWindow_clear(window, sfWhite);
-      event_handler(window, &event);
-      t_canvas_draw(window, canvas, 100, 100);
-      sfRenderWindow_display(window);
+      event_handler(tekpaint.window, &tekpaint.event);
+      t_canvas_draw(tekpaint.window, tekpaint.ui, 0, 0);
+      sfRenderWindow_display(tekpaint.window);
     }
-  window_close(window);
+  window_close(tekpaint.window);
   return EXIT_SUCCESS;
 }
